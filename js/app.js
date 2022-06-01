@@ -175,8 +175,13 @@ const field = document.querySelector('.field')
 
 const cells = document.querySelectorAll('.cell')
 
-function showCellsValues() {
-
+function showCellsValues(cells, matrix) {
+  cells.forEach(cell => {
+    let i = +cell.id.slice(0, 1);
+    let j = cell.id.slice(1);
+    cell.innerText = matrix[i][j];
+    console.log(typeof i)
+  })
 }
 showCellsValues(cells, matrix)
-console.log(cells)
+// console.log(cells)
