@@ -29,8 +29,12 @@ body {
 
         .cell {
           background: $lilac;
-          flex: 0 0 23%;
+          flex: 1 1 23%;
           border-radius: 5px;
+          color: antiquewhite;
+          font-size: 40px;
+          text-align: center;
+          line-height: 110px;
         }
       }
     }

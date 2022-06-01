@@ -1,11 +1,11 @@
 const matrixSize = 4;
-// const matrix = new Array(matrixSize).fill().map(() => new Array(matrixSize).fill(0))
-const matrix = [
-  [1, 0, 0, 2],
-  [1024, 512, 2, 2],
-  [1024, 0, 8, 8],
-  [32, 0, 8, 128]
-]
+const matrix = new Array(matrixSize).fill().map(() => new Array(matrixSize).fill(0))
+// const matrix = [
+//   [1, 0, 0, 2],
+//   [1024, 512, 2, 2],
+//   [1024, 0, 8, 8],
+//   [32, 0, 8, 128]
+// ]
 // const a = [
 //   [128, 512, 0, 8],
 //   [128, 512, 2, 8],
