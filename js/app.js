@@ -1,8 +1,40 @@
 const matrixSize = 4;
-const matrix = new Array(matrixSize).fill().map(() => new Array(matrixSize).fill(0))
+// const matrix = new Array(matrixSize).fill().map(() => new Array(matrixSize).fill(0))
+const matrix = [
+  [1, 0, 0, 2],
+  [1024, 512, 2, 2],
+  [1024, 0, 8, 8],
+  [32, 0, 8, 128]
+]
+// const a = [
+//   [128, 512, 0, 8],
+//   [128, 512, 2, 8],
+//   [1024, 0, 8, 8],
+//   [32, 128, 8, 128]
+// ]
+// const b = [
+//   [0, 32, 0, 2],
+//   [1024, 512, 32, 2],
+//   [32, 0, 32, 8],
+//   [32, 0, 8, 32]
+// ]
+// const c = [
+//   [0, 4, 4, 2],
+//   [1024, 512, 128, 2],
+//   [0, 0, 4, 8],
+//   [32, 128, 4, 128]
+// ]
+// const d = [
+//   [0, 2, 0, 2],
+//   [1024, 2, 2, 2],
+//   [128, 2, 32, 8],
+//   [0, 2, 8, 128]
+// ]
 const prevMatrix = [];
-
+let score = 0;
+console.log(score)
 const newGame = function () {
+  addRandomCellValue();
   addRandomCellValue();
 }
 
@@ -24,7 +56,7 @@ const addRandomCellValue = function () {
 
 // j - column, i - row
 
-const makeMove = function (move) {
+const makeMove = function (move, matrix) {
   switch (move) {
     case 'up':
       for (let j = 0; j < matrixSize; j++) {
@@ -32,24 +64,27 @@ const makeMove = function (move) {
           if (matrix[i][j] == 0) continue;
           for (let z = i - 1; z >= 0; z--) { // сравнивает с предыдущими и соединяет
             if (matrix[z][j] == 0) continue;
-            if (matrix[i][j] == matrix[z][j]) {
+            if (matrix[i][j] == matrix[z][j] && i != z) {
               matrix[z][j] *= 2;
               matrix[i][j] = 0;
               i = z - 1;
             } else i = z;
-            break;
           }
         }
 
         let a = 0;
         for (let i = 1; i < matrixSize; i++) {
           if (matrix[i][j] == 0) continue;
-          matrix[a][j] = matrix[i][j];
-          matrix[i][j] = 0;
-          a++;
+          for (a = 0; a < matrixSize; a++) {
+            if (matrix[a][j] == 0) {
+              matrix[a][j] = matrix[i][j];
+              matrix[i][j] = 0;
+            } else continue;
+          }
         }
       }
       break;
+
 
     case 'down':
       for (let j = 0; j < matrixSize; j++) {
@@ -131,3 +166,17 @@ const makeMove = function (move) {
 }
 
 
+
+// console.log(c)
+// makeMove('up', c)
+// console.log(c)
+// console.log(score)
+const field = document.querySelector('.field')
+
+const cells = document.querySelectorAll('.cell')
+
+function showCellsValues() {
+
+}
+showCellsValues(cells, matrix)
+console.log(cells)

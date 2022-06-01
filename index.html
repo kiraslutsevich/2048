@@ -2,39 +2,56 @@
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="./css/style.css">
-	<title>game</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./css/style.css">
+  <title>game</title>
 </head>
 
 <body>
-	<main>
-		<div class="content">
-			<div class="field">
-				<div class="cell" id="00"></div>
-				<div class="cell" id="01"></div>
-				<div class="cell" id="02"></div>
-				<div class="cell" id="03"></div>
+  <main>
+    <div class="content">
+      <h1>2048</h1>
+      <div class="points">
+        <div class="score"></div>
+        <div class="best"></div>
+      </div>
+      <div class="buttons">
+        <button></button>
+        <button></button>
+        <button></button>
+      </div>
+      <div class="field">
+        <div class="cell" id="00"></div>
+        <div class="cell" id="01"></div>
+        <div class="cell" id="02"></div>
+        <div class="cell" id="03"></div>
 
-				<div class="cell" id="10"></div>
-				<div class="cell" id="11"></div>
-				<div class="cell" id="12"></div>
-				<div class="cell" id="13"></div>
+        <div class="cell" id="10"></div>
+        <div class="cell" id="11"></div>
+        <div class="cell" id="12"></div>
+        <div class="cell" id="13"></div>
 
-				<div class="cell" id="20"></div>
-				<div class="cell" id="21"></div>
-				<div class="cell" id="22"></div>
-				<div class="cell" id="23"></div>
+        <div class="cell" id="20"></div>
+        <div class="cell" id="21"></div>
+        <div class="cell" id="22"></div>
+        <div class="cell" id="23"></div>
 
-				<div class="cell" id="30"></div>
-				<div class="cell" id="31"></div>
-				<div class="cell" id="32"></div>
-				<div class="cell" id="33"></div>
-			</div>
-		</div>
-	</main>
+        <div class="cell" id="30"></div>
+        <div class="cell" id="31"></div>
+        <div class="cell" id="32"></div>
+        <div class="cell" id="33"></div>
+      </div>
+      <div class="control-keys">
+        <button id="up"></button>
+        <button id="down"></button>
+        <button id="right"></button>
+        <button id="left"></button>
+      </div>
+    </div>
+  </main>
+  <script defer src="./js/app.js"></script>
 </body>
 
 </html>
