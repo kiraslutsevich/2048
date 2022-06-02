@@ -1,50 +1,40 @@
 const matrixSize = 4;
-// cons matrix = new Array(matrixSize).fill().map(() => new Array(matrixSize).fill(0))
-const matrix = [
-  [128, 0, 0, 2],
-  [1024, 512, 2, 2],
-  [1024, 0, 8, 8],
-  [32, 0, 8, 128]
-]
-const a = [
-  [128, 512, 0, 0],
-  [128, 512, 2, 8],
-  [1024, 0, 8, 8],
-  [32, 128, 8, 8]
-]
-const b = [
-  [0, 32, 0, 2],
-  [1024, 512, 32, 2],
-  [32, 0, 32, 8],
-  [32, 0, 8, 32]
-]
-const c = [
-  [0, 4, 4, 2],
-  [1024, 512, 128, 2],
-  [0, 0, 4, 8],
-  [32, 128, 4, 128]
-]
-const d = [
-  [0, 2, 0, 2],
-  [1024, 2, 2, 2],
-  [128, 2, 32, 8],
-  [0, 2, 8, 128]
-]
+const matrix = new Array(matrixSize).fill().map(() => new Array(matrixSize).fill(0));
 const prevMatrix = [];
+
+const newGameButton = document.getElementById('new');
+const rulesButton = document.getElementById('rules');
+const undoMoveButton = document.getElementById('undo');
+
+const field = document.querySelector('.field');
+const cells = document.querySelectorAll('.cell');
+
+const scoreBoard = document.getElementById('score');
+const bestScoreBoard = document.getElementById('best')
 let score = 0;
+scoreBoard.innerText = score;
+
+const controlKeys = document.querySelector('.control-keys');
+
+
+
+const showCellsValues = function (cells, matrix) {
+  cells.forEach(cell => {
+    let i = +cell.id.slice(0, 1);
+    let j = cell.id.slice(1);
+    if (matrix[i][j] == 0) {
+      cell.innerText = '';
+    } else {
+      cell.innerText = matrix[i][j];
+    }
+  })
+}
 
 const increaseScore = function (value) {
   if (!Number.isInteger(value)) {
     throw new Error('wrong argument')
   }
   score += value;
-}
-
-
-console.log(score)
-const newGame = function () {
-  addRandomCellValue();
-  addRandomCellValue();
 }
 
 const addRandomCellValue = function () {
@@ -64,8 +54,6 @@ const addRandomCellValue = function () {
   let randomCellCol = freeCellsIndices[randomCell][1];
   matrix[randomCellRow][randomCellCol] = (randomCellValue) ? 2 : 4;
 }
-
-// j - column, i - row
 
 const makeStep = function (step, matrix) {
   switch (step) {
@@ -188,24 +176,11 @@ const makeStep = function (step, matrix) {
   }
 }
 
-
-
-console.log(a)
-makeStep('up', a)
-console.log(a)
-console.log(score)
-// console.log(score)
-const field = document.querySelector('.field')
-
-const cells = document.querySelectorAll('.cell')
-
-function showCellsValues(cells, matrix) {
-  cells.forEach(cell => {
-    let i = +cell.id.slice(0, 1);
-    let j = cell.id.slice(1);
-    cell.innerText = matrix[i][j];
-    console.log(typeof i)
-  })
+const newGame = function (cells, matrix) {
+  matrix = matrix.map((elem) => elem.fill(0));
+  addRandomCellValue();
+  addRandomCellValue();
+  showCellsValues(cells, matrix);
 }
-// showCellsValues(cells, matrix)
-// console.log(cells)
+
+newGameButton.addEventListener('click', () => newGame(cells, matrix))

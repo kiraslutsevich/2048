@@ -1,0 +1,32 @@
+button {
+  background-color: $pink_mb;
+  color: $pink2;
+  border: solid $pink2 1px;
+  border-radius: 5px;
+  width: 100px;
+  height: 40px;
+  text-transform: uppercase;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 500px;
+  margin: 10px;
+}
+
+.control-keys {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#up,
+#left,
+#down,
+#right {
+  font-size: 30px;
+  width: 50px;
+  margin: 4px;
+}

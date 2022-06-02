@@ -13,14 +13,10 @@
   <main>
     <div class="content">
       <h1>2048</h1>
-      <div class="points">
-        <div class="score"></div>
-        <div class="best"></div>
-      </div>
       <div class="buttons">
-        <button></button>
-        <button></button>
-        <button></button>
+        <button id="new">new game</button>
+        <button id="rules">how to play</button>
+        <button id="undo">undo move</button>
       </div>
       <div class="field">
         <div class="cell" id="00"></div>
@@ -43,11 +39,19 @@
         <div class="cell" id="32"></div>
         <div class="cell" id="33"></div>
       </div>
+      <div class="points">
+        <div class="points__score">score: <p class="points__nums" id="score"></p>
+        </div>
+        <div class="points__best">best score: <p class="points__nums" id="best"></p>
+        </div>
+      </div>
       <div class="control-keys">
-        <button id="up"></button>
-        <button id="down"></button>
-        <button id="right"></button>
-        <button id="left"></button>
+        <button class="control-keys__row" id="up">&#8593</button>
+        <div class="control-keys__row">
+          <button id="left"> &#8592</button>
+          <button id="down">&#8595</button>
+          <button id="right">&#8594</button>
+        </div>
       </div>
     </div>
   </main>

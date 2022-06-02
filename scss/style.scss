@@ -1,4 +1,7 @@
 @import 'colors';
+@import 'buttons';
+@import 'nullstyle';
+@import 'fonts';
 
 body {
   width: 100%;
@@ -29,12 +32,31 @@ body {
 
         .cell {
           background: $lilac;
-          flex: 1 1 23%;
           border-radius: 5px;
           color: antiquewhite;
           font-size: 40px;
           text-align: center;
           line-height: 110px;
+          width: 112px;
+          height: 112px;
+        }
+      }
+
+      .points {
+        display: flex;
+        flex-direction: row;
+        width: 500px;
+        justify-content: space-between;
+
+        .points__score,
+        .points__best {
+          width: 200px;
+          padding: 10px;
+          text-transform: uppercase;
+        }
+
+        .points__nums {
+          display: inline;
         }
       }
     }

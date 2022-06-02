@@ -1,3 +1,133 @@
+@charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Quicksand:700);
+button {
+  background-color: #996699;
+  color: #FFCCFF;
+  border: solid #FFCCFF 1px;
+  border-radius: 5px;
+  width: 100px;
+  height: 40px;
+  text-transform: uppercase;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 500px;
+  margin: 10px;
+}
+
+.control-keys {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#up,
+#left,
+#down,
+#right {
+  font-size: 30px;
+  width: 50px;
+  margin: 4px;
+}
+
+/*Обнуление*/
+* {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+:focus,
+:active {
+  outline: none;
+}
+
+a:focus,
+a:active {
+  outline: none;
+}
+
+nav,
+footer,
+header,
+aside {
+  display: block;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  line-height: 1;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+input,
+button,
+textarea {
+  font-family: inherit;
+}
+
+input::-ms-clear {
+  display: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+button::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+a,
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+ul li {
+  list-style: none;
+}
+
+img {
+  vertical-align: top;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+/*--------------------*/
+body {
+  font-family: "Quicksand";
+}
+
+h1 {
+  font-size: 78px;
+}
+
 body {
   width: 100%;
   height: 100%;
@@ -26,10 +156,26 @@ body main .content .field {
 }
 body main .content .field .cell {
   background: #CC99CC;
-  flex: 1 1 23%;
   border-radius: 5px;
   color: antiquewhite;
   font-size: 40px;
   text-align: center;
   line-height: 110px;
+  width: 112px;
+  height: 112px;
+}
+body main .content .points {
+  display: flex;
+  flex-direction: row;
+  width: 500px;
+  justify-content: space-between;
+}
+body main .content .points .points__score,
+body main .content .points .points__best {
+  width: 200px;
+  padding: 10px;
+  text-transform: uppercase;
+}
+body main .content .points .points__nums {
+  display: inline;
 }
