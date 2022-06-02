@@ -31,14 +31,15 @@ body {
 
 
         .cell {
-          background: $lilac;
           border-radius: 5px;
-          color: antiquewhite;
+          background: $lilac;
+          color: $pink_mb;
           font-size: 40px;
           text-align: center;
           line-height: 110px;
           width: 112px;
           height: 112px;
+          transition: 0.3s;
         }
       }
 

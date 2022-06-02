@@ -155,14 +155,15 @@ body main .content .field {
   justify-content: center;
 }
 body main .content .field .cell {
-  background: #CC99CC;
   border-radius: 5px;
-  color: antiquewhite;
+  background: #CC99CC;
+  color: #996699;
   font-size: 40px;
   text-align: center;
   line-height: 110px;
   width: 112px;
   height: 112px;
+  transition: 0.3s;
 }
 body main .content .points {
   display: flex;
