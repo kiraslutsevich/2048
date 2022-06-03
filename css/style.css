@@ -1,13 +1,19 @@
 @charset "UTF-8";
 @import url(https://fonts.googleapis.com/css?family=Quicksand:700);
 button {
-  background-color: #996699;
+  background: #996699;
   color: #FFCCFF;
   border: solid #FFCCFF 1px;
   border-radius: 5px;
   width: 100px;
   height: 40px;
   text-transform: uppercase;
+}
+button:hover {
+  border: solid #CC99CC 1px;
+}
+button:active {
+  background-color: #925792;
 }
 
 .buttons {

@@ -1,8 +1,48 @@
 const matrixSize = 4;
-const matrix = new Array(matrixSize).fill().map(() => new Array(matrixSize).fill(0));
-let prevMatrix;
+const colors = {
+  2: '#FFCCFF',
+  4: '#f5a4f5',
+  8: '#ff89ff',
+  16: '#fd72fd',
+  32: '#f75bf7',
+  64: '#ff43ff',
+  128: '#ff32ff',
+  256: '#ff00ff',
+  512: '#e000e0',
+  1024: '#b300b3',
+  2048: '#8a008a',
+};
+
 let score = 0;
 let bestScore = 0;
+let tempScore = 0;
+
+let currentDataCells = new Array(matrixSize).fill().map(() => new Array(matrixSize).fill(0));
+let prevDataCells = new Array(matrixSize).fill().map(() => new Array(matrixSize).fill(0));
+
+const saveCurrentDataCells = (currentDataCells) => localStorage.setItem('matrix', JSON.stringify(currentDataCells))
+const getCurrentDataCells = (key = 'matrix') => currentDataCells = JSON.parse(localStorage.getItem(key))
+if (localStorage.getItem('matrix')) {
+  getCurrentDataCells()
+}
+const savePrevDataCells = (prevDataCells) => localStorage.setItem('prevMatrix', JSON.stringify(prevDataCells))
+const getPrevDataCells = (key = 'prevMatrix') => prevDataCells = JSON.parse(localStorage.getItem(key))
+if (localStorage.getItem('prevMatrix')) {
+  getPrevDataCells()
+}
+const saveCurrentScoreData = (score) => localStorage.setItem('score', score);
+const getCurrentScoreData = (key = 'score') => score = +(localStorage.getItem(key));
+if (localStorage.getItem('score')) {
+  getCurrentScoreData();
+}
+const saveBestScoreData = (bestScore) => localStorage.setItem('bestscore', bestScore);
+const getBestScoreData = (key = 'bestscore') => bestScore = +(localStorage.getItem(key));
+if (localStorage.getItem('bestscore')) {
+  getBestScoreData();
+}
+
+let matrix = [...currentDataCells]
+let prevMatrix = [...prevDataCells]
 
 const newGameButton = document.getElementById('new');
 const rulesButton = document.getElementById('rules');
@@ -19,8 +59,23 @@ const controlKeys = document.querySelector('.control-keys');
 scoreBoard.innerText = score;
 bestScoreBoard.innerText = bestScore;
 
+const copyItem = (item) => {
+  if (Array.isArray(item)) {
+    return item.map(copyItem);
+  }
+  if (item instanceof Date) {
+    return new Date(item);
+  }
+  if (item && typeof item === 'object') {
+    return Object.entries(item).reduce((acc, [key, value]) => {
+      acc[key] = copyItem(value);
+      return acc;
+    }, {});
+  }
+  return item;
+};
 
-const showCellsValues = function (cells, matrix) {
+const showCellsValues = (cells, matrix) => {
   cells.forEach(cell => {
     let i = +cell.id.slice(0, 1);
     let j = cell.id.slice(1);
@@ -40,24 +95,27 @@ const showCellsValues = function (cells, matrix) {
 
 }
 
-const increaseScore = function (value) {
+const increaseScore = (value) => {
   if (!Number.isInteger(value)) {
     throw new Error('wrong argument')
   }
   score += value;
   scoreBoard.innerText = score;
+  saveCurrentScoreData(score)
 }
 
-const getBestScore = function () {
+const getBestScore = () => {
   if (score > bestScore) {
     bestScore = score;
     bestScoreBoard.innerText = bestScore;
   }
   score = 0;
   scoreBoard.innerText = score;
+  saveCurrentScoreData(score)
+  saveBestScoreData(bestScore)
 }
 
-const addRandomCellValue = function () {
+const addRandomCellValue = () => {
   let freeCellsIndices = [];
   for (let i = 0; i < matrixSize; i++) {
     for (let j = 0; j < matrixSize; j++) {
@@ -71,15 +129,18 @@ const addRandomCellValue = function () {
   }
 
   let randomCell = Math.floor(Math.random() * (freeCellsIndices.length));
-  let randomCellValue = Math.round(Math.random());
+  let randomCellValue = Math.round(Math.random() + 0.4);
   let randomCellRow = freeCellsIndices[randomCell][0];
   let randomCellCol = freeCellsIndices[randomCell][1];
   matrix[randomCellRow][randomCellCol] = randomCellValue ? 2 : 4;
 }
 
-const makeStep = function (step, matrix) {
+const makeStep = (step, matrix) => {
+  let tempPrev = copyItem(prevMatrix);
+  prevMatrix = copyItem(matrix);
+  savePrevDataCells(prevMatrix);
+  tempScore = score;
 
-  prevMatrix = JSON.parse(JSON.stringify(matrix));
 
   switch (step) {
     case 'up':
@@ -118,6 +179,12 @@ const makeStep = function (step, matrix) {
           matrix[a][j] = matrix[i][j];
           matrix[i][j] = 0;
         }
+      }
+
+      if (JSON.stringify(prevMatrix) != JSON.stringify(matrix)) {
+        addRandomCellValue()
+      } else {
+        prevMatrix = copyItem(tempPrev);
       }
       break;
 
@@ -158,6 +225,13 @@ const makeStep = function (step, matrix) {
           matrix[i][j] = 0;
         }
       }
+
+
+      if (JSON.stringify(prevMatrix) != JSON.stringify(matrix)) {
+        addRandomCellValue()
+      } else {
+        prevMatrix = copyItem(tempPrev);
+      }
       break;
 
     case 'right':
@@ -196,6 +270,11 @@ const makeStep = function (step, matrix) {
           matrix[i][a] = matrix[i][j];
           matrix[i][j] = 0;
         }
+      }
+      if (JSON.stringify(prevMatrix) != JSON.stringify(matrix)) {
+        addRandomCellValue()
+      } else {
+        prevMatrix = copyItem(tempPrev);
       }
       break;
 
@@ -236,26 +315,39 @@ const makeStep = function (step, matrix) {
           matrix[i][j] = 0;
         }
       }
-
+      if (JSON.stringify(prevMatrix) != JSON.stringify(matrix)) {
+        addRandomCellValue()
+      } else {
+        prevMatrix = copyItem(tempPrev);
+      }
       break;
 
-    default:
-      console.log('wrong arg')
+    default: console.log('missed :)');
   }
-  if (JSON.stringify(prevMatrix) != JSON.stringify(matrix)) {
-    addRandomCellValue()
-  }
+  saveCurrentDataCells(matrix)
 }
 
-const startNewGame = function (cells, matrix, score) {
+const undoMove = () => {
+  matrix = copyItem(prevMatrix);
+  saveCurrentDataCells(matrix);
+  showCellsValues(cells, matrix);
+  score = tempScore;
+  scoreBoard.innerText = score;
+}
+
+const startNewGame = (cells, matrix, score) => {
   matrix = matrix.map((elem) => elem.fill(0));
+  prevMatrix = prevMatrix.map((elem) => elem.fill(0));
   addRandomCellValue();
   addRandomCellValue();
   getBestScore();
   showCellsValues(cells, matrix);
+  saveCurrentDataCells(matrix)
 }
 
 newGameButton.addEventListener('click', () => startNewGame(cells, matrix))
+
+undoMoveButton.addEventListener('click', () => undoMove(matrix, prevMatrix))
 
 controlKeys.addEventListener('click', (e) => {
   makeStep(e.target.id, matrix);
@@ -270,21 +362,17 @@ document.addEventListener('keydown', (e) => {
     let move = e.code.toLowerCase().slice(5);
     makeStep(move, matrix)
     showCellsValues(cells, matrix)
+    let key = document.getElementById(move);
+    key.style.background = '#925792'
+    document.addEventListener('keyup', (e) => {
+      if (e.code == 'ArrowDown' ||
+        e.code == 'ArrowLeft' ||
+        e.code == 'ArrowRight' ||
+        e.code == 'ArrowUp') {
+        key.style.background = '#996699'
+      }
+    })
   }
 })
 
-
-
-const colors = {
-  2: '#FFCCFF',
-  4: '#f5a4f5',
-  8: '#ff89ff',
-  16: '#fd72fd',
-  32: '#f75bf7',
-  64: '#ff43ff',
-  128: '#ff32ff',
-  256: '#ff00ff',
-  512: '#e000e0',
-  1024: '#b300b3',
-  2048: '#8a008a',
-};
+document.onload = showCellsValues(cells, matrix);

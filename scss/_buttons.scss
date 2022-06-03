@@ -6,6 +6,15 @@ button {
   width: 100px;
   height: 40px;
   text-transform: uppercase;
+
+  &:hover {
+    border: solid $lilac 1px;
+  }
+
+  &:active {
+    background-color: $pink_dark_mb;
+  }
+
 }
 
 .buttons {
