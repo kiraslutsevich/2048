@@ -345,6 +345,12 @@ const startNewGame = (cells, matrix, score) => {
   saveCurrentDataCells(matrix)
 }
 
+// const showModalWindow = () => {
+//   const modalWindow = document.createElement(div);
+//   modalWindow.classList = 
+
+// }
+
 newGameButton.addEventListener('click', () => startNewGame(cells, matrix))
 
 undoMoveButton.addEventListener('click', () => undoMove(matrix, prevMatrix))
@@ -373,6 +379,10 @@ document.addEventListener('keydown', (e) => {
       }
     })
   }
+})
+
+rulesButton.addEventListener('click', () => {
+  showModalWindow()
 })
 
 document.onload = showCellsValues(cells, matrix);
