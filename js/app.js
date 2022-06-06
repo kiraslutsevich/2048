@@ -7,20 +7,6 @@ const createEmptyMatrix = () => {
 let currentDataCells = createEmptyMatrix();
 let prevDataCells = createEmptyMatrix();
 
-const colors = {
-  2: '#FFCCFF',
-  4: '#f5a4f5',
-  8: '#ff89ff',
-  16: '#fd72fd',
-  32: '#f75bf7',
-  64: '#ff43ff',
-  128: '#ff32ff',
-  256: '#ff00ff',
-  512: '#e000e0',
-  1024: '#b300b3',
-  2048: '#8a008a',
-};
-
 let score = 0;
 let bestScore = 0;
 let tempScore = 0;
@@ -96,9 +82,11 @@ const showCellsValues = () => {
     }
 
     if (cell.textContent != '') {
-      cell.style.background = colors[cell.textContent]
+      let g = 240 - (Math.log(cell.textContent) / Math.log(2)) * 15;
+      cell.style.backgroundColor = `#ff${g.toString(16)}ff`;
+      console.log(cell.style.backgroundColor)
     } else {
-      cell.style.background = '#CC99CC'
+      cell.style.backgroundColor = `#CC99CC`
     }
   })
 
