@@ -6,7 +6,7 @@
 body {
   width: 100%;
   height: 100%;
-  background-color: antiquewhite;
+  background-color: $background;
 
   main {
     width: 100%;
@@ -16,32 +16,7 @@ body {
       display: flex;
       flex-direction: column;
       align-items: center;
-
-      .field {
-        width: 500px;
-        height: 500px;
-        display: flex;
-        align-self: center;
-        flex-wrap: wrap;
-        gap: 10px;
-        background-color: $pink_mb;
-        border-radius: 10px;
-        padding: 10px;
-        justify-content: center;
-
-
-        .cell {
-          border-radius: 5px;
-          background: $lilac;
-          color: $pink_mb;
-          font-size: 40px;
-          text-align: center;
-          line-height: 110px;
-          width: 112px;
-          height: 112px;
-          transition: 0.3s;
-        }
-      }
+      position: relative;
 
       .points {
         display: flex;
@@ -61,5 +36,47 @@ body {
         }
       }
     }
+  }
+}
+
+.field {
+  width: 500px;
+  height: 500px;
+  display: flex;
+  align-self: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  background-color: $pink_mb;
+  border-radius: 10px;
+  padding: 10px;
+  justify-content: center;
+
+  .cell {
+    border-radius: 5px;
+    background: $lilac;
+    color: $pink_mb;
+    font-size: 40px;
+    text-align: center;
+    line-height: 110px;
+    width: 112px;
+    height: 112px;
+    transition: 0.3s;
+  }
+}
+
+.info {
+  display: none;
+  position: absolute;
+  width: 400px;
+  padding: 20px;
+  top: 40%;
+  text-align: center;
+  background-color: $background;
+  border: solid black 1px;
+  border-radius: 5px;
+
+  &__text {
+    padding: 5px;
+    margin-bottom: 10px;
   }
 }
