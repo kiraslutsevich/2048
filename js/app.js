@@ -11,7 +11,6 @@ let score = 0;
 let bestScore = 0;
 let tempScore = 0;
 
-
 const saveCurrentDataCells = (currentDataCells) => {
   return localStorage.setItem('matrix', JSON.stringify(currentDataCells))
 }
@@ -84,7 +83,6 @@ const showCellsValues = () => {
     if (cell.textContent != '') {
       let g = 240 - (Math.log(cell.textContent) / Math.log(2)) * 15;
       cell.style.backgroundColor = `#ff${g.toString(16)}ff`;
-      console.log(cell.style.backgroundColor)
     } else {
       cell.style.backgroundColor = `#CC99CC`
     }
